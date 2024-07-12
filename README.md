@@ -1,5 +1,5 @@
 # STBCApi
-This project is an RESTful API created for Strong Tower Baptist Church (STBC). The api integrates with MongoDb Atlas to perform CRUD operations in a collection with different document schemas. This API was created only for STBC but was designed with the idea that other churches may want to impletement/integrate their own version of this API.
+This project is a RESTful API created for Strong Tower Baptist Church (STBC). The api integrates with MongoDb Atlas to perform CRUD operations in a collection with different document schemas. This API was created only for STBC but was designed with the idea that other churches may want to impletement/integrate their own version of this API.
 
 ## Getting Started
 
@@ -406,6 +406,7 @@ The STBC API utilizes two main types of databases to store and manage data effic
 ### Diagrams
 
 #### Model Data Classes UML 
+<img width="6720" alt="SBTC Class UML (2)" src="https://github.com/user-attachments/assets/d69e7635-0583-40f1-8601-659032dc5b36">
 
 ## Data Security
 - Access to read and write data is strictly controlled through role-based access control. Two different user roles are defined: one for reading data and another for both reading and writing data.
