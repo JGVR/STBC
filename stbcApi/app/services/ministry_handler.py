@@ -1,6 +1,5 @@
 from .handler import Handler
 from ..models.ministry import Ministry
-from ..models.church_class import Class
 from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
