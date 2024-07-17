@@ -8,7 +8,7 @@ class Ministry(BaseModel):
     model_config = ConfigDict(frozen=True, populate_by_name=True, str_strip_whitespace=True, extra='forbid')
 
     church_id: int = Field(gt=0, alias="churchId")
-    name: str = Field(max_length=200)
-    description: str
+    name: str = Field(max_length=100)
+    description: str = Field(max_length=2000)
     image_url: str = Field(default="", alias="imageUrl")
     register_url: str = Field(default="", alias="registerUrl")

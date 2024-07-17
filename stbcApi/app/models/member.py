@@ -13,7 +13,7 @@ class Member(BaseModel):
     first_name: str = Field(max_length=150, alias="firstName")
     middle_name: str = Field(max_length=150, default="", alias="middleName")
     last_name: str = Field(max_length=150, alias="lastName")
-    title: str = Field(max_length=100, default="")
+    title: str = Field(max_length=50, default="")
     short_bio: str = Field(max_length=500, default="", alias="shortBio")
     email_address: str = Field(default="", alias="emailAddress")
     phone_number: str = Field(default="", alias="phoneNumber")
