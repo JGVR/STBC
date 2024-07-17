@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 from ..utils.week_days import WeekDays
 
-class Event(BaseModel):
+class Service(BaseModel):
     # > makes fields immutable after instantiation
     # > instantiation can be made by using property name or alias name
     # > strips white spaces from all str fields
@@ -11,5 +11,5 @@ class Event(BaseModel):
 
     church_id: int = Field(gt=0, alias="churchId")
     title: str = Field(max_length=100)
-    dateOfWeek: WeekDays
+    dateOfWeek: WeekDays | str
     time: datetime = Field(default=None)
