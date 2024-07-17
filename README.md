@@ -122,8 +122,7 @@ If you are using docker, please follow the instructions below:
                   "string",
                   "null"
                 ],
-                "description": "The school description must be null or a string no longer than 1500 characters.",
-                "maxLength": 1500
+                "description": "The school description must be null or a string no longer than 1500 characters."
               },
               "dateOfWeek": {
                 "bsonType": "string",
@@ -165,8 +164,11 @@ If you are using docker, please follow the instructions below:
                       "maxLength": 100
                     },
                     "membersId": {
-                      "bsonType": "int",
-                      "description": "The membersId field should be an int that uniquely identifies a member of the church."
+                      "bsonType": "array",
+                      "items": {
+                        "bsonType": "int",
+                        "description": "The membersId field should be an int that uniquely identifies a member of the church."
+                      }
                     }
                   }
                 }
@@ -295,6 +297,20 @@ If you are using docker, please follow the instructions below:
                 "description": "The member's shortBio field must be a string no longer than 500 characters.",
                 "maxLength": 500
               },
+              "emailAddress": {
+                "bsonType": [
+                  "string",
+                  "null"
+                ],
+                "description": "The member's email address field must be a string."
+              },
+              "phoneNumber": {
+                "bsonType": [
+                  "string",
+                  "null"
+                ],
+                "description": "The member's phone number field must be a string."
+              },
               "imageUrl": {
                 "bsonType": [
                   "string",
@@ -337,8 +353,8 @@ If you are using docker, please follow the instructions below:
               },
               "description": {
                 "bsonType": "string",
-                "description": "The ministry's description field must be a string no longer than 1000 characters.",
-                "maxLength": 1000
+                "description": "The ministry's description field must be a string no longer than 2000 characters.",
+                "maxLength": 2000
               },
               "imageUrl": {
                 "bsonType": [
