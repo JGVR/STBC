@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 from ..utils.week_days import WeekDays
+from .church_class import Class
+from typing import List
 
 class School(BaseModel):
     # > makes fields immutable after instantiation
@@ -14,6 +16,7 @@ class School(BaseModel):
     name: str = Field(max_length=150)
     short_description: str = Field(max_length=500, alias="shortDescription")
     description: str = Field(default="")
-    date_of_week: WeekDays
+    date_of_week: WeekDays | str
     time: datetime
     image_url: str = Field(default="", alias="imageUrl")
+    classes: List[Class]

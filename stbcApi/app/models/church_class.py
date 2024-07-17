@@ -8,7 +8,6 @@ class Class(BaseModel):
     # > forbids any new properties from been added to the object upon instantiation
     model_config = ConfigDict(frozen=True, populate_by_name=True, str_strip_whitespace=True, extra='forbid')
 
-    church_id: int = Field(gt=0, alias="churchId")
     member_ids: List[int] = Field(alias="memberIds")
     name: str = Field(max_length=150)
     ages: str = Field(max_length=100)
