@@ -60,6 +60,9 @@ BenchmarkDotNet.Artifacts/
 # Ignore venv
 venv/
 
+# Ignore venv
+.env
+
 # Ignore .DS_Store file
 .DS_Store
 
