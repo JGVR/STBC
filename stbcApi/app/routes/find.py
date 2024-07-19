@@ -13,7 +13,7 @@ def find(request):
         collection = db[config.atlas_collection_name]
         req_data = request.query_params
         handler = HandlerIdentifier.call(req_data["type"])
-        resp = handler.find(req_data["model_data"], collection)
+        resp = handler.find(req_data["filter"], collection)
         return Response(resp, status.HTTP_200_OK, content_type="application/json")
     except Exception as ex:
         return Response(f"Error: {ex}", status.HTTP_400_BAD_REQUEST)
