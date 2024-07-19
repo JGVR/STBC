@@ -5,7 +5,7 @@ from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
 
-class memberHandler(Handler):
+class MemberHandler(Handler):
     def insert(self, members: List[Member], collection: Collection) -> List[int]:
         if not all(isinstance(member, Member) for member in members):
             raise ValueError(f"Input data expected to be a list of member objects.")
