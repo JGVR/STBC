@@ -8,4 +8,4 @@ class Church(BaseModel):
     model_config = ConfigDict(frozen=True, populate_by_name=True, str_strip_whitespace=True, extra='forbid')
 
     church_id: int = Field(gt=0, alias="churchId")
-    name: int = Field(max_length=250)
+    name: str = Field(max_length=250)

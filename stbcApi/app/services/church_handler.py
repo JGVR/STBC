@@ -12,7 +12,7 @@ class ChurchHandler(Handler):
         
         data = {
             "type": Type.CHURCH.value,
-            "createdAt": datetime.today
+            "createdAt": datetime.now()
         }
         data.update(church.model_dump(by_alias=True))
         return {"_id": collection.insert_one(data).inserted_id}
