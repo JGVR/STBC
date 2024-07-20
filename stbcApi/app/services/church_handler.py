@@ -4,6 +4,7 @@ from pymongo.collection import Collection
 from typing import Dict, Any
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class ChurchHandler(Handler):
     def insert(self, church: Church, collection: Collection) -> Dict[str, int]:

@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field, ConfigDict
+from bson import ObjectId
 
 class Church(BaseModel):
     # > makes fields immutable after instantiation
