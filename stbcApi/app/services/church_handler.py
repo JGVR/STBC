@@ -12,6 +12,7 @@ class ChurchHandler(Handler):
             raise ValueError(f"Input data expected to be a Church object.")
         
         data = {
+            "_id": ObjectId(),
             "type": Type.CHURCH.value,
             "createdAt": datetime.now()
         }
