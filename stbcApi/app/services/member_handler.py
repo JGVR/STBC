@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class MemberHandler(Handler):
-    def insert(self, members: List[Member], collection: Collection) -> List[int]:
+    def insert(self, members: List[Member], collection: Collection) -> List[ObjectId]:
         if not all(isinstance(member, Member) for member in members):
             raise ValueError(f"Input data expected to be a list of member objects.")
         
