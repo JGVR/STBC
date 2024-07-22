@@ -4,6 +4,7 @@ from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class MemberHandler(Handler):
     def insert(self, members: List[Member], collection: Collection) -> List[int]:
@@ -13,8 +14,9 @@ class MemberHandler(Handler):
         members_data = []
         for member in members:
             data = {
+                "_id": ObjectId(),
                 "type": Type.MEMBER.value,
-                "createdAt": datetime.today
+                "createdAt": datetime.now()
             }
             data.update(member.model_dump(by_alias=True))
             members_data.append(data)
