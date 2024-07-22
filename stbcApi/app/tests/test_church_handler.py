@@ -7,7 +7,7 @@ from bson import ObjectId
 from pydantic_core import ValidationError
 
 class TestChurchHandler:
-    client = MongoClient("mongodb+srv://jv_admin:Th0r3s3lDi0sDelTrueno1130!@portfolio.jmd2tdg.mongodb.net/?retryWrites=true&w=majority&appName=Portfolio")
+    client = MongoClient(config.atlas_conn_str)
     db = client["churches"]
     collection = db["churchDetails"]
 
@@ -22,3 +22,54 @@ class TestChurchHandler:
             result = ChurchHandler().insert(church, self.collection)
             
         assert "validation error" in str(exc)
+    
+    def test_find_church_by_id(self):
+        filter = {
+            "churchId": 1
+        }
+        result = ChurchHandler().find(filter, self.collection)
+        assert isinstance(result, Church)
+        assert result.church_id == 1
+    
+    def test_find_non_existant_church(self):
+        filter = {
+            "churchId": 50
+        }
+        result = ChurchHandler().find(filter, self.collection)
+        assert result == None
+    
+    def test_delete_church(self):
+        filter = {
+            "churchId": 1
+        }
+        result = ChurchHandler().delete(filter, self.collection)
+        assert result["count"] == 1
+    
+    def test_delete_non_existant_church(self):
+        filter = {
+            "churchId": 50
+        }
+        result = ChurchHandler().delete(filter, self.collection)
+        assert result["count"] == 0
+
+    def test_update_church_name(self):
+        filter = {
+            "type": "church",
+            "name": "Strong Tower Baptist Church"
+        }
+        new_data = {
+            "name": "First Baptist Church"
+        }
+        result = ChurchHandler().update(filter, new_data, self.collection)
+        assert result["count"] == 1
+    
+    def test_update_non_existant_church(self):
+        filter = {
+            "type": "church",
+            "name": "IBI"
+        }
+        new_data = {
+            "name": "Saint John Church"
+        }
+        result = ChurchHandler().update(filter, new_data, self.collection)
+        assert result["count"] == 0
