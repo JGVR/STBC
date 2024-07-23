@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 from datetime import datetime
 
 class Member(BaseModel):
@@ -15,8 +15,8 @@ class Member(BaseModel):
     last_name: str = Field(max_length=150, alias="lastName")
     title: str = Field(max_length=50, default="")
     short_bio: str = Field(max_length=500, default="", alias="shortBio")
-    email_address: str = Field(default="", pattern=r"^[\w,-]+@[a-zA-Z].{2,}$", alias="emailAddress")
-    phone_number: str = Field(default="", pattern=r"[0-9]{3}-[0-9]{3}-[0-9]{4}", alias="phoneNumber")
+    email_address: str | None = Field(default="", pattern=r"^[\w,-]+@[a-zA-Z].{2,}$", alias="emailAddress")
+    phone_number: str | None = Field(default=None, pattern=r"[0-9]{3}-[0-9]{3}-[0-9]{4}", alias="phoneNumber")
     image_url: str = Field(default="", alias="imageUrl")
     start_date: datetime | None = Field(default=None, alias="startDate")
     end_date: datetime | None = Field(default=None, alias="endDate")

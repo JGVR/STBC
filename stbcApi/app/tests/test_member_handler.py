@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class TestMemberHandler:
-    client = MongoClient(config.atlas_conn_str)
+    client = MongoClient( "mongodb+srv://jv_admin:Th0r3s3lDi0sDelTrueno1130!@portfolio.jmd2tdg.mongodb.net/?retryWrites=true&w=majority&appName=Portfolio")
     db = client["churches"]
     collection = db["churchDetails"]
 
@@ -20,7 +20,7 @@ class TestMemberHandler:
                 last_name = "Vasquez",
                 title = "Softwate Dev",
                 short_bio= "Bilingual, born and raised in the DR",
-                email_address= "juangabrielvasquez11@gmail.com",
+                email_address=None,
                 image_url="",
                 start_date = datetime.now(),
                 end_date = None
@@ -64,3 +64,10 @@ class TestMemberHandler:
         assert isinstance(result[0], ObjectId)
         assert isinstance(result[0], ObjectId)
         
+    def test_find_church(self):
+        filter = {
+            "churchId": 1
+        }
+        results = MemberHandler().find(filter, self.collection)
+        assert isinstance(results, list)
+        assert all(isinstance(member, Member) for member in results)

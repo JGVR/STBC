@@ -33,14 +33,14 @@ class MemberHandler(Handler):
             member = Member(
                 church_id = doc["churchId"],
                 member_id = doc["memberId"],
-                firstName = doc["firstName"],
-                middleName = doc["middleName"],
-                lastName = doc["lastName"],
+                first_name = doc["firstName"],
+                middle_name = doc["middleName"],
+                last_name = doc["lastName"],
                 title = doc["title"],
                 short_bio = doc["shortBio"],
                 email_address = doc["emailAddress"],
                 phone_number = doc["phoneNumber"],
-                imageUrl = doc["imageUrl"],
+                image_url = doc["imageUrl"],
                 start_date = doc["startDate"],
                 end_date = doc["endDate"]
             )
