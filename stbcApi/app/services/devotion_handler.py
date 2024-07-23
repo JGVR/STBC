@@ -4,6 +4,7 @@ from pymongo.collection import Collection
 from typing import Dict, Any
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class DevotionHandler(Handler):
     def insert(self, devotion: Devotion, collection: Collection) -> Dict[str, int]:
@@ -11,8 +12,9 @@ class DevotionHandler(Handler):
             raise ValueError(f"Input data expected to be a Devotion object.")
         
         data = {
+            "_id": ObjectId(),
             "type": Type.DEVOTION.value,
-            "createdAt": datetime.today
+            "createdAt": datetime.now()
         }
         data.update(devotion.model_dump(by_alias=True))
         return {"_id": collection.insert_one(data).inserted_id}
