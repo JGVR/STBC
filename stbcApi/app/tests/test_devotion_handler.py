@@ -5,6 +5,7 @@ from stbcApi.app.config import config
 from pymongo import MongoClient
 from bson import ObjectId
 from datetime import datetime
+from pydantic_core import ValidationError
 
 class TestChurchHandler:
     client = MongoClient(config.atlas_conn_str)
@@ -21,3 +22,25 @@ class TestChurchHandler:
         )
         result = DevotionHandler().insert(devotion, self.collection)
         assert isinstance(result["_id"], ObjectId)
+
+    def test_insert_devotion_with_incorrect_schema(self):
+        with pytest.raises(ValidationError) as exc:
+            devotion = Devotion(
+                church_id=1,
+                member_id=5,
+                title="test devotion II",
+                message="test message for devotion test II",
+                test="this should fail"
+            )
+            result = DevotionHandler().insert(devotion, self.collection)
+        assert "validation error" in str(exc)
+        
+    def test_find_devotion(self):
+        filter = {
+            "churchId": 1,
+            "memberId": 2,
+            "title": "test devotion"
+        }
+        result = DevotionHandler().find(filter, self.collection)
+        assert isinstance(result, list)
+        assert result[0].title == "test devotion"
