@@ -44,3 +44,24 @@ class TestChurchHandler:
         result = DevotionHandler().find(filter, self.collection)
         assert isinstance(result, list)
         assert result[0].title == "test devotion"
+
+    def test_delete_devotion(self):
+        filter = {
+            "churchId": 1,
+            "memberId": 2,
+            "title": "test devotion"
+        }
+        result = DevotionHandler().delete(filter, self.collection)
+        assert result["count"] == 1
+
+    def test_update_devotio(self):
+        filter = {
+            "churchId": 1,
+            "memberId": 2,
+            "title": "test devotion"
+        }
+        new_data = {
+            "memberId": 55
+        }
+        result = DevotionHandler().update(filter, new_data, self.collection)
+        assert result["count"] == 1
