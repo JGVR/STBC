@@ -63,3 +63,37 @@ class TestSchoolHandler:
         results = SchoolHandler().insert(schools, self.collection)
         assert isinstance(results, list)
         assert isinstance(results[0], ObjectId)
+
+    def test_insert_schools_with_incorrect_schema(self):
+        with pytest.raises(ValidationError) as exc:
+            schools = [
+                School(
+                    church_id=1,
+                    school_id=2,
+                    name="Wednesday School",
+                    short_description = "testetstes",
+                    date_of_week = "Wednesday",
+                    description="test",
+                    fail_field = 123456,
+                    classes = [
+                        Class(
+                            member_ids = [1,2,3],
+                            name="test",
+                            ages = "9 to 10"
+                        )
+                    ]
+                )
+            ]
+            results = SchoolHandler().insert(schools, self.collection)
+        assert "Extra inputs are not permitted" in str(exc)
+
+
+    def test_find_schools_with_same_classes(self):
+        filter = {
+            "churchId": 1,
+            "classes.name": "Test Class"
+        }
+        results = SchoolHandler().find(filter, self.collection)
+        assert isinstance(results, list)
+        assert all(isinstance(school, School) for school in results)
+        assert results[0].classes[0].name == "Test Class"

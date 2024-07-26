@@ -33,7 +33,7 @@ class SchoolHandler(Handler):
         for doc in cursor:
             school = School(
                 church_id = doc["churchId"],
-                school_id = doc["SchoolId"],
+                school_id = doc["schoolId"],
                 name = doc["name"],
                 short_description = doc["shortDescription"],
                 description = doc["description"],
