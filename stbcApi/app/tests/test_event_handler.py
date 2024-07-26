@@ -50,3 +50,22 @@ class TestEventHandler:
             ]
             results = EventHandler().insert(events, self.collection)
         assert "validation error" in str(exc)
+
+    def test_find_event_by_title(self):
+        filter = {
+            "churchId": 1,
+            "title": "Test event title 2"
+        }
+        results = EventHandler().find(filter, self.collection)
+        assert all(isinstance(event, Event) for event in results)
+        assert len(results) == 2
+
+    def test_find_non_existant_event(self):
+        filter = {
+            "churchId": 1,
+            "title": "Test event title 55"
+        }
+        results = EventHandler().find(filter, self.collection)
+        assert results == None
+
+    
