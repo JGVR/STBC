@@ -9,7 +9,7 @@ from datetime import datetime
 from pydantic_core import ValidationError
 
 class TestSchoolHandler:
-    client = MongoClient("mongodb+srv://jv_admin:Th0r3s3lDi0sDelTrueno1130!@portfolio.jmd2tdg.mongodb.net/?retryWrites=true&w=majority&appName=Portfolio")
+    client = MongoClient(config.atlas_conn_str)
     db = client["churches"]
     collection = db["churchDetails"]
 
