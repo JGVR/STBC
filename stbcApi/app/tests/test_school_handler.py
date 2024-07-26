@@ -9,7 +9,7 @@ from datetime import datetime
 from pydantic_core import ValidationError
 
 class TestSchoolHandler:
-    client = MongoClient(config.atlas_conn_str)
+    client = MongoClient("mongodb+srv://jv_admin:Th0r3s3lDi0sDelTrueno1130!@portfolio.jmd2tdg.mongodb.net/?retryWrites=true&w=majority&appName=Portfolio")
     db = client["churches"]
     collection = db["churchDetails"]
 
@@ -97,3 +97,35 @@ class TestSchoolHandler:
         assert isinstance(results, list)
         assert all(isinstance(school, School) for school in results)
         assert results[0].classes[0].name == "Test Class"
+    
+    def test_find_non_existant_school(self):
+        filter ={
+            "churchId": 1,
+            "schoolId": 500
+        }
+        results = SchoolHandler().find(filter, self.collection)
+        assert results == None
+
+    def test_delete_school(self):
+        filter = {
+            "churchId": 1,
+            "time": "22:25:55"
+        }
+        result = SchoolHandler().delete(filter, self.collection)
+        assert result["count"] == 1
+
+    def test_update_school(self):
+        filter = {
+            "churchId": 1,
+            "schoolId": 2,
+            "name": "Wednesday School",
+            "time": "22:20:09"
+        }
+        new_data = {
+            "name": "Wednesday Night School",
+            "shortDescription": "Classes for Wednesday Night School",
+            "description": "This is for Wednesday Night Schools",
+            "dateOfWeek": "Wednesday"
+        }
+        result = SchoolHandler().update(filter, new_data, self.collection)
+        assert result["count"] == 1
