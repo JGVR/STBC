@@ -68,4 +68,24 @@ class TestEventHandler:
         results = EventHandler().find(filter, self.collection)
         assert results == None
 
+    def test_delete_event(self):
+        filter = {
+            "churchId": 1,
+            "description": "This is a test for church events",
+        }
+        result = EventHandler().delete(filter, self.collection)
+        assert result["count"] == 1
+    
+    def test_update_event(self):
+        filter = {
+            "churchId": 1,
+            "title": "Test event title 2",
+            "description": "This is a test for church events 2"
+        }
+        new_data = {
+            "title": "Test event title 3",
+            "description": "This is a test for church events 3"
+        }
+        result = EventHandler().update(filter, new_data, self.collection)
+        assert result["count"] == 1
     
