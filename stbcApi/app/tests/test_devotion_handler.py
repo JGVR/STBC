@@ -7,7 +7,7 @@ from bson import ObjectId
 from datetime import datetime
 from pydantic_core import ValidationError
 
-class TestChurchHandler:
+class TestDevotionHandler:
     client = MongoClient(config.atlas_conn_str)
     db = client["churches"]
     collection = db["churchDetails"]

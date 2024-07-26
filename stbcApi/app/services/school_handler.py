@@ -5,6 +5,7 @@ from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class SchoolHandler(Handler):
     def insert(self, schools: List[School], collection: Collection) -> List[int]:
@@ -14,8 +15,9 @@ class SchoolHandler(Handler):
         schools_data = []
         for school in schools:
             data = {
+                "_id": ObjectId(),
                 "type": Type.SCHOOL.value,
-                "createdAt": datetime.today,
+                "createdAt": datetime.now(),
             }
             data.update(school.model_dump(by_alias=True))
             schools_data.append(data)
