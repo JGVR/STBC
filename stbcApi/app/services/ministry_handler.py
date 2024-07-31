@@ -4,17 +4,19 @@ from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class MinistryHandler(Handler):
-    def insert(self, ministries: List[Ministry], collection: Collection) -> List[int]:
+    def insert(self, ministries: List[Ministry], collection: Collection) -> List[ObjectId]:
         if not all(isinstance(ministry, Ministry) for ministry in ministries):
             raise ValueError(f"Input data expected to be a list of Ministry objects.")
         
         ministries_data = []
         for ministry in ministries:
             data = {
+                "_id":ObjectId(), 
                 "type": Type.MINISTRY.value,
-                "createdAt": datetime.today,
+                "createdAt": datetime.now(),
             }
             data.update(ministry.model_dump(by_alias=True))
             ministries_data.append(data)
