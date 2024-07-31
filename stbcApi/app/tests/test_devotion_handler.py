@@ -54,7 +54,7 @@ class TestDevotionHandler:
         result = DevotionHandler().delete(filter, self.collection)
         assert result["count"] == 1
 
-    def test_update_devotio(self):
+    def test_update_devotion(self):
         filter = {
             "churchId": 1,
             "memberId": 2,

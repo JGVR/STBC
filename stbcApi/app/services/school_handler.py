@@ -8,7 +8,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class SchoolHandler(Handler):
-    def insert(self, schools: List[School], collection: Collection) -> List[int]:
+    def insert(self, schools: List[School], collection: Collection) -> List[ObjectId]:
         if not all(isinstance(school, School) for school in schools):
             raise ValueError(f"Input data expected to be a list of School objects.")
         

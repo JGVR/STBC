@@ -4,7 +4,6 @@ from stbcApi.app.services.ministry_handler import MinistryHandler
 from stbcApi.app.config import config
 from pymongo import MongoClient
 from bson import ObjectId
-from datetime import datetime
 from pydantic_core import ValidationError
 
 class TestMinistryHandler:
@@ -68,7 +67,7 @@ class TestMinistryHandler:
         result = MinistryHandler().delete(filter, self.collection)
         assert result["count"] == 1
 
-    def test_update_school(self):
+    def test_update_ministry(self):
         filter = {
             "churchId": 1,
             "description": "This is the description of test ministry 1"

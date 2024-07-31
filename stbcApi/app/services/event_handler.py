@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class EventHandler(Handler):
-    def insert(self, events: List[Event], collection: Collection) -> List[int]:
+    def insert(self, events: List[Event], collection: Collection) -> List[ObjectId]:
         if not all(isinstance(event, Event) for event in events):
             raise ValueError(f"Input data expected to be a list of Event objects.")
         

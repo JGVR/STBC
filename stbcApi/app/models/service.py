@@ -11,5 +11,5 @@ class Service(BaseModel):
 
     church_id: int = Field(gt=0, alias="churchId")
     title: str = Field(max_length=100)
-    dateOfWeek: WeekDays | str
-    time: datetime = Field(default=None)
+    date_of_week: WeekDays | str = Field(alias="dateOfWeek")
+    time: str = Field(default="")

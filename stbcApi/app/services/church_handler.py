@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class ChurchHandler(Handler):
-    def insert(self, church: Church, collection: Collection) -> Dict[str, int]:
+    def insert(self, church: Church, collection: Collection) -> Dict[str, ObjectId]:
         if not isinstance(church, Church):
             raise ValueError(f"Input data expected to be a Church object.")
         
