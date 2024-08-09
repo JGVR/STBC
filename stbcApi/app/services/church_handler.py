@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class ChurchHandler(Handler):
-    def insert(self, church: Church, collection: Collection) -> Dict[str, ObjectId]:
+    def insert(self, church: Church, collection: Collection) -> Dict[str, str]:
         if not isinstance(church, Church):
             raise ValueError(f"Input data expected to be a Church object.")
         
@@ -17,7 +17,7 @@ class ChurchHandler(Handler):
             "createdAt": datetime.now()
         }
         data.update(church.model_dump(by_alias=True))
-        return {"_id": collection.insert_one(data).inserted_id}
+        return {"_id": str(collection.insert_one(data).inserted_id)}
     
     def find(self, filter: Dict[str, Any], collection: Collection) -> Church:
         if not isinstance(filter, dict):
