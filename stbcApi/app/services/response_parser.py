@@ -9,6 +9,8 @@ class ResponseParser:
             if isinstance(data, list):
                 if isinstance(data[0], dict):
                     return data
+                elif isinstance(data[0], str):
+                    return {"_id": data}
                 else:
                     return [entity.model_dump(by_alias=True) for entity in data]
             elif isinstance(data, dict):
