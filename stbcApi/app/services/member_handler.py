@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class MemberHandler(Handler):
-    def insert(self, members: List[Member], collection: Collection) -> List[ObjectId]:
+    def insert(self, members: List[Member], collection: Collection) -> List[str]:
         if not all(isinstance(member, Member) for member in members):
             raise ValueError(f"Input data expected to be a list of member objects.")
         
@@ -20,7 +20,7 @@ class MemberHandler(Handler):
             }
             data.update(member.model_dump(by_alias=True))
             members_data.append(data)
-        return collection.insert_many(members_data).inserted_ids
+        return [str(id) for id in collection.insert_many(members_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[Member]:
         if not isinstance(filter, dict):

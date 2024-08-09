@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class ServiceHandler(Handler):
-    def insert(self, services: List[Service], collection: Collection) -> List[ObjectId]:
+    def insert(self, services: List[Service], collection: Collection) -> List[str]:
         if not all(isinstance(service, Service) for service in services):
             raise ValueError(f"Input data expected to be a list of Service objects.")
         
@@ -20,7 +20,7 @@ class ServiceHandler(Handler):
             }
             data.update(service.model_dump(by_alias=True))
             services_data.append(data)
-        return collection.insert_many(services_data).inserted_ids
+        return [str(id) for id in collection.insert_many(services_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[Service]:
         if not isinstance(filter, dict):

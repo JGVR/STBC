@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class EventHandler(Handler):
-    def insert(self, events: List[Event], collection: Collection) -> List[ObjectId]:
+    def insert(self, events: List[Event], collection: Collection) -> List[str]:
         if not all(isinstance(event, Event) for event in events):
             raise ValueError(f"Input data expected to be a list of Event objects.")
         
@@ -20,7 +20,7 @@ class EventHandler(Handler):
             }
             data.update(event.model_dump(by_alias=True))
             events_data.append(data)
-        return collection.insert_many(events_data).inserted_ids
+        return [str(id) for id in collection.insert_many(events_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[Event]:
         if not isinstance(filter, dict):
