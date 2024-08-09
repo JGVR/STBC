@@ -41,4 +41,4 @@ class ServiceHandler(Handler):
 
         if len(services) >= 1:
             return services
-        return None
+        return f"Couldn't find anything: {filter}"
