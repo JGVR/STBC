@@ -5,17 +5,19 @@ from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class SchoolHandler(Handler):
-    def insert(self, schools: List[School], collection: Collection) -> List[int]:
+    def insert(self, schools: List[School], collection: Collection) -> List[ObjectId]:
         if not all(isinstance(school, School) for school in schools):
             raise ValueError(f"Input data expected to be a list of School objects.")
         
         schools_data = []
         for school in schools:
             data = {
+                "_id": ObjectId(),
                 "type": Type.SCHOOL.value,
-                "createdAt": datetime.today,
+                "createdAt": datetime.now(),
             }
             data.update(school.model_dump(by_alias=True))
             schools_data.append(data)
@@ -31,7 +33,7 @@ class SchoolHandler(Handler):
         for doc in cursor:
             school = School(
                 church_id = doc["churchId"],
-                school_id = doc["SchoolId"],
+                school_id = doc["schoolId"],
                 name = doc["name"],
                 short_description = doc["shortDescription"],
                 description = doc["description"],

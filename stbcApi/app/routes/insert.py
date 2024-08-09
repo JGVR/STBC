@@ -23,7 +23,7 @@ def insert(request):
             for data in request.data["model_data"]:
                 model = ModelIdentifier.call(request.data["type"], data)
                 model_data.append(model)
-            resp =handler.insert(model_data, collection)
+            resp = handler.insert(model_data, collection)
 
         return Response(resp, status.HTTP_201_CREATED, content_type="application/json")
     except Exception as ex:

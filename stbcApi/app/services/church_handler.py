@@ -4,15 +4,17 @@ from pymongo.collection import Collection
 from typing import Dict, Any
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class ChurchHandler(Handler):
-    def insert(self, church: Church, collection: Collection) -> Dict[str, int]:
+    def insert(self, church: Church, collection: Collection) -> Dict[str, ObjectId]:
         if not isinstance(church, Church):
             raise ValueError(f"Input data expected to be a Church object.")
         
         data = {
+            "_id": ObjectId(),
             "type": Type.CHURCH.value,
-            "createdAt": datetime.today
+            "createdAt": datetime.now()
         }
         data.update(church.model_dump(by_alias=True))
         return {"_id": collection.insert_one(data).inserted_id}

@@ -1,23 +1,25 @@
 from .handler import Handler
 from ..models.devotion import Devotion
 from pymongo.collection import Collection
-from typing import Dict, Any
+from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class DevotionHandler(Handler):
-    def insert(self, devotion: Devotion, collection: Collection) -> Dict[str, int]:
+    def insert(self, devotion: Devotion, collection: Collection) -> Dict[str, ObjectId]:
         if not isinstance(devotion, Devotion):
             raise ValueError(f"Input data expected to be a Devotion object.")
         
         data = {
+            "_id": ObjectId(),
             "type": Type.DEVOTION.value,
-            "createdAt": datetime.today
+            "createdAt": datetime.now()
         }
         data.update(devotion.model_dump(by_alias=True))
         return {"_id": collection.insert_one(data).inserted_id}
     
-    def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> Devotion:
+    def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[Devotion]:
         if not isinstance(filter, dict):
             raise ValueError(f"Input data expected to be a dictionary")
         

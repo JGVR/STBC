@@ -4,17 +4,19 @@ from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
 from datetime import datetime
+from bson import ObjectId
 
 class ServiceHandler(Handler):
-    def insert(self, services: List[Service], collection: Collection) -> List[int]:
+    def insert(self, services: List[Service], collection: Collection) -> List[ObjectId]:
         if not all(isinstance(service, Service) for service in services):
             raise ValueError(f"Input data expected to be a list of Service objects.")
         
         services_data = []
         for service in services:
             data = {
+                "_id": ObjectId(),
                 "type": Type.SERVICE.value,
-                "createdAt": datetime.today,
+                "createdAt": datetime.now(),
             }
             data.update(service.model_dump(by_alias=True))
             services_data.append(data)
@@ -39,4 +41,4 @@ class ServiceHandler(Handler):
 
         if len(services) >= 1:
             return services
-        return None
+        return f"Couldn't find anything: {filter}"

@@ -10,9 +10,9 @@ class Config:
     atlas_collection_name: str
 
 config = Config(
-    atlas_admin_user=os.environ["ATLAS_ADMIN_USER"],
-    atlas_admin_pw=os.environ["ATLAS_ADMIN_PW"],
-    atlas_conn_str=os.environ["ATLAS_CONN_STR"],
-    atlas_db_name=os.environ["ATLAS_DB_NAME"],
-    atlas_collection_name=os.environ["ATLAS_COLLECTION_NAME"]
+    atlas_admin_user=os.getenv("ATLAS_ADMIN_USER"),
+    atlas_admin_pw=os.getenv("ATLAS_ADMIN_PW"),
+    atlas_conn_str=os.getenv("ATLAS_CONN_STR"),
+    atlas_db_name=os.getenv("ATLAS_DB_NAME"),
+    atlas_collection_name=os.getenv("ATLAS_COLLECTION_NAME")
 )

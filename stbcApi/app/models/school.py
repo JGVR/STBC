@@ -16,7 +16,7 @@ class School(BaseModel):
     name: str = Field(max_length=150)
     short_description: str = Field(max_length=500, alias="shortDescription")
     description: str = Field(default="")
-    date_of_week: WeekDays | str
-    time: datetime
+    date_of_week: WeekDays | str = Field(alias="dateOfWeek")
+    time: str = Field(default=None)
     image_url: str = Field(default="", alias="imageUrl")
     classes: List[Class]

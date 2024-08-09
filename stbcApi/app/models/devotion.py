@@ -10,7 +10,6 @@ class Devotion(BaseModel):
 
     church_id: int = Field(gt=0, alias="churchId")
     member_id: int = Field(gt=0, alias="memberId")
-    devotion_id: int = Field(gt=0, alias="devotionId")
     title: str = Field(max_length=250)
-    date: datetime = Field(default=datetime.today)
+    date: datetime = Field(default=datetime.now())
     message: str
