@@ -8,7 +8,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class SchoolHandler(Handler):
-    def insert(self, schools: List[School], collection: Collection) -> List[ObjectId]:
+    def insert(self, schools: List[School], collection: Collection) -> List[str]:
         if not all(isinstance(school, School) for school in schools):
             raise ValueError(f"Input data expected to be a list of School objects.")
         
@@ -21,7 +21,7 @@ class SchoolHandler(Handler):
             }
             data.update(school.model_dump(by_alias=True))
             schools_data.append(data)
-        return collection.insert_many(schools_data).inserted_ids
+        return [str(id) for id in collection.insert_many(schools_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[School]:
         if not isinstance(filter, dict):

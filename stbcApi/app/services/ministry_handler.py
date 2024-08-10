@@ -7,7 +7,7 @@ from datetime import datetime
 from bson import ObjectId
 
 class MinistryHandler(Handler):
-    def insert(self, ministries: List[Ministry], collection: Collection) -> List[ObjectId]:
+    def insert(self, ministries: List[Ministry], collection: Collection) -> List[str]:
         if not all(isinstance(ministry, Ministry) for ministry in ministries):
             raise ValueError(f"Input data expected to be a list of Ministry objects.")
         
@@ -20,7 +20,7 @@ class MinistryHandler(Handler):
             }
             data.update(ministry.model_dump(by_alias=True))
             ministries_data.append(data)
-        return collection.insert_many(ministries_data).inserted_ids
+        return [str(id) for id in collection.insert_many(ministries_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[Ministry]:
         if not isinstance(filter, dict):
