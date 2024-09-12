@@ -34,7 +34,9 @@ class EventHandler(Handler):
                 church_id = doc["churchId"],
                 title = doc["title"],
                 description = doc["description"],
-                date = doc["date"],
+                start_date = doc["startDate"],
+                end_date = doc["endDate"],
+                event_url = doc["eventUrl"],
                 image_url = doc["imageUrl"],
                 location = doc["location"]
             )
