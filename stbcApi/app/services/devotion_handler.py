@@ -31,7 +31,7 @@ class DevotionHandler(Handler):
                 church_id = doc["churchId"],
                 member_id = doc["memberId"],
                 title = doc["title"],
-                date = doc["date"],
+                week_day = doc["weekDay"],
                 message = doc["message"]
             )
             devotions.append(devotion)
