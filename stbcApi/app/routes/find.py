@@ -14,8 +14,9 @@ def find(request):
         db = client[config.atlas_db_name]
         collection = db[config.atlas_collection_name]
         data = QueryParamParser.call(request.query_params)
+        max_docs = int(data.pop("maxDocs", 5))
         handler = HandlerIdentifier.call(data["type"])
-        resp_data = handler.find(data, collection)
+        resp_data = handler.find(data, collection, max_docs)
         resp = ResponseParser.call(resp_data)
         return Response(resp, status.HTTP_200_OK, content_type="application/json")
     except Exception as ex:
