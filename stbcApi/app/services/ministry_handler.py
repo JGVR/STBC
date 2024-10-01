@@ -12,25 +12,34 @@ class MinistryHandler(Handler):
             raise ValueError(f"Input data expected to be a list of Ministry objects.")
         
         ministries_data = []
+        last_doc = collection.find_one(filter={"type": "ministry"}, sort=[("recordId", -1)])
+        last_id = last_doc["recordId"] if last_doc else 0
         for ministry in ministries:
+            last_id+=1
             data = {
                 "_id":ObjectId(), 
                 "type": Type.MINISTRY.value,
                 "createdAt": datetime.now(),
+                "recordId": last_id
             }
-            data.update(ministry.model_dump(by_alias=True))
+            data.update(ministry.model_dump(by_alias=True, exclude={"id"}))
             ministries_data.append(data)
         return [str(id) for id in collection.insert_many(ministries_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[Ministry]:
         if not isinstance(filter, dict):
             raise ValueError(f"Input data expected to be a dictionary")
-        
-        cursor = collection.find(filter).limit(max_docs)
+        recordId = filter.pop("recordId",0)
+
+        cursor = collection.find({
+            **filter,
+            "recordId": {"$gt": recordId}
+        }, sort=[("recordId", 1)]).limit(max_docs)
         ministries = []
 
         for doc in cursor:
             ministry = Ministry(
+                id = int(doc["recordId"]),
                 church_id = doc["churchId"],
                 name = doc["name"],
                 description = doc["description"],

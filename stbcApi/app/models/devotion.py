@@ -11,5 +11,5 @@ class Devotion(BaseModel):
     church_id: int = Field(gt=0, alias="churchId")
     member_id: int = Field(gt=0, alias="memberId")
     title: str = Field(max_length=250)
-    date: datetime = Field(default=datetime.now())
+    week_day: str = Field(alias="weekDay")
     message: str
