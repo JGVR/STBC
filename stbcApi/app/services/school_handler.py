@@ -13,21 +13,30 @@ class SchoolHandler(Handler):
             raise ValueError(f"Input data expected to be a list of School objects.")
         
         schools_data = []
+        last_doc = collection.find_one(filter={"type": "ministry"}, sort=[("recordId", -1)])
+        last_id = last_doc["recordId"] if last_doc else 0
+
         for school in schools:
+            last_id+=1
             data = {
                 "_id": ObjectId(),
                 "type": Type.SCHOOL.value,
                 "createdAt": datetime.now(),
+                "schoolId": last_id
             }
-            data.update(school.model_dump(by_alias=True))
+            data.update(school.model_dump(by_alias=True, exclude={"school_id"}))
             schools_data.append(data)
         return [str(id) for id in collection.insert_many(schools_data).inserted_ids]
     
     def find(self, filter: Dict[str, Any], collection: Collection, max_docs: int = 5) -> List[School]:
         if not isinstance(filter, dict):
             raise ValueError(f"Input data expected to be a dictionary")
+        school_id = filter.pop("schoolId",0)
         
-        cursor = collection.find(filter).limit(max_docs)
+        cursor = collection.find({
+            **filter,
+            "schoolId": {"$gt": school_id}
+        }, sort=[("schoolId", 1)]).limit(max_docs)
         schools = []
 
         for doc in cursor:
