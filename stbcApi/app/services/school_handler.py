@@ -13,8 +13,8 @@ class SchoolHandler(Handler):
             raise ValueError(f"Input data expected to be a list of School objects.")
         
         schools_data = []
-        last_doc = collection.find_one(filter={"type": "ministry"}, sort=[("recordId", -1)])
-        last_id = last_doc["recordId"] if last_doc else 0
+        last_doc = collection.find_one(filter={"type": "school"}, sort=[("schoolId", -1)])
+        last_id = last_doc["schoolId"] if last_doc else 0
 
         for school in schools:
             last_id+=1
