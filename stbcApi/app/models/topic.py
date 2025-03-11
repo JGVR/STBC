@@ -8,4 +8,4 @@ class Topic(BaseModel):
     # > forbids any new properties from been added to the object upon instantiation
     model_config = ConfigDict(frozen=True, populate_by_name=True, str_strip_whitespace=True, extra='forbid')
 
-    topics: List[str]
+    text: str
