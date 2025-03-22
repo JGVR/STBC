@@ -16,3 +16,4 @@ class Sermon(BaseModel):
     speaker_id: int = Field(gt=0, alias="speakerId")
     date: datetime
     topics: List[str]
+    
