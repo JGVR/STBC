@@ -6,6 +6,7 @@ from ..models.member import Member
 from ..models.ministry import Ministry
 from ..models.school import School
 from ..models.service import Service
+from ..models.sermon import Sermon
 
 class ModelIdentifier:
     @staticmethod
@@ -35,6 +36,10 @@ class ModelIdentifier:
                 if isinstance(req_data, list):
                     return [School(**data) for data in req_data]
                 return School(**req_data)
+            case "sermon":
+                if isinstance(req_data, list):
+                    return [Sermon(**data) for data in req_data]
+                return Sermon(**req_data)
             case _:
                 if isinstance(req_data, list):
                     return [Service(**data) for data in req_data]

@@ -8,3 +8,4 @@ class Type(Enum):
     MINISTRY = "ministry"
     SERVICE = "service"
     EVENT = "event"
+    SERMON = "sermon"
