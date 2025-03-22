@@ -6,6 +6,7 @@ from .member_handler import MemberHandler
 from .ministry_handler import MinistryHandler
 from .school_handler import SchoolHandler
 from .service_handler import ServiceHandler
+from .sermon_handler import SermonHandler
 
 class HandlerIdentifier:
     @staticmethod
@@ -23,5 +24,7 @@ class HandlerIdentifier:
                 return MinistryHandler()
             case "school":
                 return SchoolHandler()
+            case "sermon":
+                return SermonHandler()
             case _:
                 return ServiceHandler()
