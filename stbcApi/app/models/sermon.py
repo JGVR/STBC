@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field, ConfigDict
-from .topic import Topic
 from datetime import datetime
 from typing import List
 
@@ -16,4 +15,3 @@ class Sermon(BaseModel):
     speaker_id: int = Field(gt=0, alias="speakerId")
     date: datetime
     topics: List[str]
-    

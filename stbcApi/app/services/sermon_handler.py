@@ -1,6 +1,5 @@
 from .handler import Handler
 from ..models.sermon import Sermon
-from ..models.topic import Topic
 from pymongo.collection import Collection
 from typing import Dict, Any, List
 from ..utils.type import Type
@@ -40,7 +39,7 @@ class SermonHandler(Handler):
                 url = doc["url"],
                 speaker_id = doc["speakerId"],
                 date = doc["date"],
-                topics = [Topic(**topic) for topic in doc["topics"]]
+                topics = doc["topics"]
             )
             sermons.append(sermon)
         cursor.close()
